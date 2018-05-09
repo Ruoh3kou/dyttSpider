@@ -1,7 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import time
 
+headers = {
+    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36",
+    "Accept":"text/html, application/xhtml+xml, application/xmlq = 0.9, image/webp, image/apng, */*q = 0.8"}
 
 class Movie:
     def __init__(self, name, Douban,link):
@@ -18,7 +22,7 @@ def getUrls(url):
     for x in range(1, 175):
         if x!=1:
             url = "http://www.ygdy8.net/html/gndy/dyzz/list_23_"+str(x)+".html"
-        r = requests.get(url)
+        r = requests.get(url,headers=headers)
         r.encoding = 'gbk'
         soup = BeautifulSoup(r.text, 'lxml')
         tables = soup.find_all("table", class_="tbspan")
@@ -32,7 +36,7 @@ def getUrls(url):
 def dataClean(urls):
     movies=[]
     for url in urls:
-        r = requests.get(url)
+        r = requests.get(url,headers=headers)
         r.encoding = 'gbk'
         soup = BeautifulSoup(r.text, 'lxml')
         text = soup.find("div", id="Zoom").get_text(strip=True)
@@ -45,6 +49,7 @@ def dataClean(urls):
                 movies.append(movie)
             except:
                 print("dataClean - save error.")
+        time.sleep(3)
     print("movies get.")
     return movies
 
