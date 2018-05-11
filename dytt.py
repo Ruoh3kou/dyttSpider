@@ -7,7 +7,6 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36",
     "Accept": "text/html, application/xhtml+xml, application/xmlq = 0.9, image/webp, image/apng, */*q = 0.8"}
 
-
 class Movie:
     def __init__(self, name, Douban, link):
         self.name = name
@@ -19,7 +18,7 @@ class Movie:
 
 
 def Spider(url):
-    for x in range(1, 10):
+    for x in range(1, 175):
         if x != 1:
             url = "http://www.ygdy8.net/html/gndy/dyzz/list_23_"+str(x)+".html"
         r = requests.get(url, headers=headers)
